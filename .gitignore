@@ -1,0 +1,8 @@
+__pycache__/
+*.pyc
+bin/
+.buildozer/
+.spec
+*.log
+.DS_Store
+workspace/
