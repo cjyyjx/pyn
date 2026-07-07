@@ -5,8 +5,7 @@ package.domain = org.pyandroid
 source.dir = .
 source.include_exts = py,png,jpg,kv,atlas
 version = 0.1
-version.regex = __version__ = ['"](.*)['"]
-version.filename = %(source.dir)s/main.py
+# version.regex and version.filename removed (conflict with version)
 requirements = python3,kivy,pygments
 orientation = portrait
 osx.python_version = 3
