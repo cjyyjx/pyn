@@ -8,7 +8,10 @@ from kivy.utils import get_color_from_hex
 
 os.environ.setdefault("PYTHONDONTWRITEBYTECODE", "1")
 
-STORAGE = "/storage/emulated/0/PyAndroid" if platform == "android" else os.path.join(os.path.dirname(os.path.abspath(__file__)), "workspace")
+if platform == "android":
+    STORAGE = os.path.join(os.environ.get("ANDROID_PRIVATE", os.environ.get("EXTERNAL_STORAGE", "/sdcard")), "PyAndroid")
+else:
+    STORAGE = os.path.join(os.path.dirname(os.path.abspath(__file__)), "workspace")
 os.makedirs(STORAGE, exist_ok=True)
 
 from app.terminal import TerminalTab

@@ -1,6 +1,5 @@
-import os, stat
+import os
 from kivy.uix.boxlayout import BoxLayout
-from kivy.uix.listview import ListView, ListItemLabel
 from kivy.uix.button import Button
 from kivy.uix.label import Label
 from kivy.uix.scrollview import ScrollView
@@ -145,15 +144,6 @@ class FileBrowserTab(BoxLayout):
         except Exception as e:
             content = f"# 打开失败: {e}"
 
-        # Open in editor tab
-        app = self.get_root_window().children[0] if hasattr(self, "get_root_window") else None
-        if app:
-            try:
-                editor_content = app.root.ids.get("editor_content")
-            except:
-                pass
-
-        # Show content in popup
         from kivy.uix.popup import Popup
         from kivy.uix.textinput import TextInput as TI
 
