@@ -139,7 +139,7 @@
                     android:layout_width="32dp"
                     android:layout_height="32dp"
                     android:padding="6dp"
-                    android:src="@drawable/ic_close"
+                    app:srcCompat="@drawable/ic_close"
                     android:clickable="true"
                     android:focusable="true"
                     android:contentDescription="清空输出" />
@@ -212,7 +212,7 @@
                     android:layout_width="36dp"
                     android:layout_height="36dp"
                     android:padding="6dp"
-                    android:src="@drawable/ic_add"
+                    app:srcCompat="@drawable/ic_add"
                     android:clickable="true"
                     android:focusable="true"
                     android:contentDescription="新建文件" />
@@ -222,7 +222,7 @@
                     android:layout_width="36dp"
                     android:layout_height="36dp"
                     android:padding="6dp"
-                    android:src="@drawable/ic_refresh"
+                    app:srcCompat="@drawable/ic_refresh"
                     android:clickable="true"
                     android:focusable="true"
                     android:contentDescription="刷新" />

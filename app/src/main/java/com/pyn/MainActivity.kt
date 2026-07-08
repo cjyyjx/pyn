@@ -55,7 +55,14 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        try {
+            setContentView(R.layout.activity_main)
+        } catch (e: Exception) {
+            val fos = openFileOutput("crash.log", MODE_PRIVATE)
+            fos.write(("CRASH: ${e.javaClass.name}: ${e.message}\n${e.stackTraceToString()}\n").toByteArray())
+            fos.close()
+            throw e
+        }
 
         drawerLayout = findViewById(R.id.drawer_layout)
         toolbar = findViewById(R.id.toolbar)
