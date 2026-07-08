@@ -140,7 +140,7 @@ class MainActivity : AppCompatActivity() {
                 val tokens = withContext(Dispatchers.Default) {
                     PythonSyntaxHighlighter.highlight(currentText)
                 }
-                val editable = editor.text
+                val editable = editor.text ?: return@launch
                 for (span in editable.getSpans(0, editable.length, android.text.style.ForegroundColorSpan::class.java)) {
                     editable.removeSpan(span)
                 }
