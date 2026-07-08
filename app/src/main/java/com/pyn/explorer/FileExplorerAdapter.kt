@@ -83,15 +83,15 @@ class FileExplorerAdapter(
 
         if (file.isDirectory) {
             holder.icon.setImageResource(
-                if (file.expanded) android.R.drawable.ic_menu_folder_open
-                else android.R.drawable.ic_menu_folder
+                if (file.expanded) R.drawable.ic_folder_open
+                else R.drawable.ic_folder
             )
             holder.icon.setColorFilter(Color.parseColor("#c586c0"))
             holder.name.setTextColor(Color.parseColor("#d4d4d4"))
         } else {
             holder.icon.setImageResource(
-                if (file.isPython) android.R.drawable.ic_menu_edit
-                else android.R.drawable.ic_menu_view
+                if (file.isPython) R.drawable.ic_code
+                else R.drawable.ic_file
             )
             holder.icon.setColorFilter(
                 if (file.isPython) Color.parseColor("#569cd6")

@@ -71,7 +71,7 @@ class MainActivity : AppCompatActivity() {
 
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        toolbar.setNavigationIcon(android.R.drawable.ic_menu_sort_by_size)
+        toolbar.setNavigationIcon(R.drawable.ic_menu)
         toolbar.setNavigationContentDescription("打开文件浏览器")
 
         toolbar.setNavigationOnClickListener {
