@@ -5,6 +5,9 @@ on:
     branches: [ main, master ]
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   build:
     runs-on: ubuntu-22.04
@@ -23,8 +26,17 @@ jobs:
       - name: Build with Gradle
         run: ./gradlew assembleDebug
 
-      - name: Upload APK
+      - name: Upload APK artifact
         uses: actions/upload-artifact@v4
         with:
           name: pyandroid-apk
           path: app/build/outputs/apk/debug/*.apk
+
+      - name: Upload to Release
+        run: |
+          cd app/build/outputs/apk/debug/
+          mv *.apk pyn-v0.1.apk
+          gh release view v0.1 --json tagName 2>/dev/null || gh release create v0.1 --title "v0.1" --notes "PyAndroid APK builds"
+          gh release upload v0.1 pyn-v0.1.apk --clobber
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
