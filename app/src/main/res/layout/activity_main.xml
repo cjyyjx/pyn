@@ -1,70 +1,240 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<androidx.drawerlayout.widget.DrawerLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#1e1e1e">
 
-    <com.google.android.material.appbar.MaterialToolbar
-        android:id="@+id/toolbar"
-        android:layout_width="0dp"
-        android:layout_height="?attr/actionBarSize"
-        android:background="#1e1e1e"
-        app:title="PyAndroid"
-        app:titleTextColor="#d4d4d4"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+    <!-- Main Content -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    <EditText
-        android:id="@+id/editor"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:background="#1e1e1e"
-        android:gravity="start|top"
-        android:inputType="textMultiLine|textNoSuggestions"
-        android:fontFamily="monospace"
-        android:textSize="13sp"
-        android:textColor="#d4d4d4"
-        android:textColorHint="#858585"
-        android:padding="8dp"
-        android:hint="# 输入 Python 代码..."
-        android:scrollbars="vertical"
-        app:layout_constraintTop_toBottomOf="@id/toolbar"
-        app:layout_constraintBottom_toTopOf="@id/divider"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <View
-        android:id="@+id/divider"
-        android:layout_width="0dp"
-        android:layout_height="1dp"
-        android:background="#3e3e3e"
-        app:layout_constraintTop_toBottomOf="@id/editor"
-        app:layout_constraintBottom_toTopOf="@id/output_scroll"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <ScrollView
-        android:id="@+id/output_scroll"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:background="#252526"
-        android:padding="8dp"
-        app:layout_constraintTop_toBottomOf="@id/divider"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
-
-        <TextView
-            android:id="@+id/output"
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fontFamily="monospace"
-            android:textSize="13sp"
-            android:textColor="#d4d4d4" />
+            android:layout_height="?attr/actionBarSize"
+            android:background="#1e1e1e"
+            app:title="PyAndroid"
+            app:titleTextColor="#d4d4d4"
+            app:subtitleTextColor="#858585" />
 
-    </ScrollView>
+        <!-- Tab Strip -->
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="36dp"
+            android:background="#252526"
+            android:scrollbars="none">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+            <LinearLayout
+                android:id="@+id/tab_strip"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="horizontal" />
+        </HorizontalScrollView>
+
+        <!-- Editor Area -->
+        <LinearLayout
+            android:id="@+id/editor_container"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/line_numbers"
+                android:layout_width="40dp"
+                android:layout_height="match_parent"
+                android:background="#1e1e1e"
+                android:gravity="top|end"
+                android:paddingStart="4dp"
+                android:paddingEnd="8dp"
+                android:paddingTop="4dp"
+                android:textSize="13sp"
+                android:fontFamily="monospace"
+                android:textColor="#858585"
+                android:lineSpacingExtra="0dp"
+                android:includeFontPadding="false"
+                android:scrollbars="none" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="#3e3e3e" />
+
+            <com.pyn.editor.ObservableEditText
+                android:id="@+id/code_editor"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="#1e1e1e"
+                android:gravity="top|start"
+                android:inputType="textMultiLine|textNoSuggestions"
+                android:fontFamily="monospace"
+                android:textSize="13sp"
+                android:textColor="#d4d4d4"
+                android:textColorHint="#858585"
+                android:padding="4dp"
+                android:paddingStart="8dp"
+                android:paddingTop="4dp"
+                android:lineSpacingExtra="0dp"
+                android:includeFontPadding="false"
+                android:scrollbars="vertical"
+                android:hint="在此输入 Python 代码..." />
+        </LinearLayout>
+
+        <!-- Output Panel -->
+        <LinearLayout
+            android:id="@+id/output_panel"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:orientation="vertical"
+            android:background="#252526"
+            android:visibility="visible">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="32dp"
+                android:orientation="horizontal"
+                android:background="#2d2d2d">
+
+                <TextView
+                    android:id="@+id/output_tab_stdout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="16dp"
+                    android:gravity="center"
+                    android:text="输出"
+                    android:textSize="12sp"
+                    android:textColor="#d4d4d4"
+                    android:background="#2d2d2d"
+                    android:clickable="true"
+                    android:focusable="true" />
+
+                <TextView
+                    android:id="@+id/output_tab_stderr"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="16dp"
+                    android:gravity="center"
+                    android:text="错误"
+                    android:textSize="12sp"
+                    android:textColor="#858585"
+                    android:background="#2d2d2d"
+                    android:clickable="true"
+                    android:focusable="true" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1" />
+
+                <ImageView
+                    android:id="@+id/btn_clear_output"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:padding="6dp"
+                    android:src="@android:drawable/ic_menu_close_clear_cancel"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:contentDescription="清空输出" />
+            </LinearLayout>
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:padding="8dp">
+
+                <TextView
+                    android:id="@+id/output_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="monospace"
+                    android:textSize="12sp"
+                    android:textColor="#d4d4d4"
+                    android:lineSpacingExtra="2dp" />
+            </ScrollView>
+        </LinearLayout>
+
+        <!-- Status Bar -->
+        <TextView
+            android:id="@+id/status_text"
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:background="#007acc"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            android:gravity="center_vertical"
+            android:text="就绪"
+            android:textSize="11sp"
+            android:textColor="#ffffff"
+            android:singleLine="true" />
+    </LinearLayout>
+
+    <!-- Drawer - File Explorer -->
+    <FrameLayout
+        android:layout_width="280dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:background="#252526">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:paddingStart="16dp"
+                android:paddingEnd="8dp"
+                android:background="#2d2d2d">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="文件浏览器"
+                    android:textColor="#d4d4d4"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:id="@+id/btn_new_file"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:padding="6dp"
+                    android:src="@android:drawable/ic_menu_add"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:contentDescription="新建文件" />
+
+                <ImageView
+                    android:id="@+id/btn_refresh"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:padding="6dp"
+                    android:src="@android:drawable/ic_menu_refresh"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:contentDescription="刷新" />
+            </LinearLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/drawer_file_list"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:clipToPadding="false" />
+        </LinearLayout>
+    </FrameLayout>
+
+</androidx.drawerlayout.widget.DrawerLayout>
