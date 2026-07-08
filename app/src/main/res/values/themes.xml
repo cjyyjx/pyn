@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.PyAndroid" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="colorPrimary">#0e639c</item>
+        <item name="colorOnPrimary">#ffffff</item>
+        <item name="colorPrimaryDark">#1e1e1e</item>
+        <item name="colorOnSecondary">#d4d4d4</item>
+        <item name="android:statusBarColor">#1e1e1e</item>
+        <item name="android:navigationBarColor">#1e1e1e</item>
+        <item name="android:windowBackground">#1e1e1e</item>
+    </style>
+</resources>
