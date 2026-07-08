@@ -7,6 +7,7 @@ import android.widget.EditText
 import android.widget.ScrollView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import com.chaquo.python.Python
 import kotlinx.coroutines.*
 
