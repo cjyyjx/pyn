@@ -18,10 +18,6 @@ android {
         ndk {
             abiFilters += listOf("arm64-v8a", "x86_64")
         }
-
-        python {
-            version = "3.10"
-        }
     }
 
     buildTypes {
@@ -41,6 +37,12 @@ android {
 
     buildFeatures {
         viewBinding = true
+    }
+}
+
+chaquopy {
+    defaultConfig {
+        version = "3.10"
     }
 }
 
