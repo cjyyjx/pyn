@@ -1,12 +1,12 @@
 package com.pyn
 
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.EditText
 import android.widget.ScrollView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
 import com.chaquo.python.Python
 import kotlinx.coroutines.*
 
@@ -28,17 +28,21 @@ class MainActivity : AppCompatActivity() {
         output = findViewById(R.id.output)
         outputScroll = findViewById(R.id.output_scroll)
 
-        toolbar.setOnMenuItemClickListener { item ->
-            when (item.itemId) {
-                R.id.action_run -> runCode()
-                R.id.action_clear -> output.text = ""
-                R.id.action_new -> editor.setText("")
-                else -> false
-            }
-            true
-        }
-
         initPython()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.main, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.action_run -> { runCode(); true }
+            R.id.action_clear -> { output.text = ""; true }
+            R.id.action_new -> { editor.setText(""); true }
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 
     private fun initPython() {

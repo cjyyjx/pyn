@@ -13,7 +13,6 @@
         android:background="#1e1e1e"
         app:title="PyAndroid"
         app:titleTextColor="#d4d4d4"
-        app:menu="@menu/main"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
